@@ -1,0 +1,78 @@
+.form {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+    width: 90%;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: none;
+    margin-bottom: 10px;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.form div {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.inputText,
+.inputEmail,
+.inputFile {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.button {
+  padding: 10px 15px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.img {
+  display: block;
+  margin-top: 10px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}

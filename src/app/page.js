@@ -1,94 +1,68 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FidgetSpinner } from "react-loader-spinner";
 
 export default function Home() {
+  const [schools, setSchools] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchSchools = async () => {
+      const response = await fetch("http://localhost:5000/api/schools");
+      const data = await response.json();
+      setSchools(data);
+      setLoading(false);
+    };
+
+    fetchSchools();
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <main>
+      <h1 className={styles.title}>Schools List</h1>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
+      <button
+        className={styles.button}
+        onClick={() => router.push("/addschools")}
+      >
+        {" "}
+        Add School
+      </button>
       <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
+        {loading ? (
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            <FidgetSpinner
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="fidget-spinner-loading"
+              wrapperStyle={{}}
+              wrapperClass="fidget-spinner-wrapper"
+            />
           </p>
-        </a>
+        ) : schools.message === "No schools created yet" ? (
+          <p>No schools found</p>
+        ) : (
+          schools?.data?.map((school) => (
+            <div key={school.id} className={styles.card}>
+              <Image
+                src={`http://localhost:5000/${school.image}`}
+                alt="School image"
+                width={200}
+                height={200}
+              />
+              <h2 className={styles.name}>{school.name}</h2>
+              <p className={styles.city}>{school.city}</p>
+              <p className={styles.address}>{school.address}</p>
+            </div>
+          ))
+        )}
       </div>
     </main>
   );
