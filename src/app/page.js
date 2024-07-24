@@ -14,7 +14,9 @@ export default function Home() {
 
   useEffect(() => {
     const fetchSchools = async () => {
-      const response = await fetch("http://localhost:5000/api/schools");
+      const response = await fetch(
+        "https://school-backend-sglg.onrender.com/api/schools"
+      );
       const data = await response.json();
       setSchools(data);
       setLoading(false);
@@ -51,12 +53,14 @@ export default function Home() {
         ) : (
           schools?.data?.map((school) => (
             <div key={school.id} className={styles.card}>
-              <Image
-                src={`http://localhost:5000/${school.image}`}
-                alt="School image"
-                width={200}
-                height={200}
-              />
+              <div>
+                <Image
+                  src={`https://school-backend-sglg.onrender.com/${school.image}`}
+                  alt="School image"
+                  width={200}
+                  height={200}
+                />
+              </div>
               <h2 className={styles.name}>{school.name}</h2>
               <p className={styles.city}>{school.city}</p>
               <p className={styles.address}>{school.address}</p>

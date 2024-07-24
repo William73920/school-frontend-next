@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { Link } from "next/link";
 
 export const imgURLbuilder = (image) => {
-  return "http://localhost:5000/" + image;
+  return "https://school-backend-sglg.onrender.com/" + image;
 };
 
 const AddSchools = () => {
@@ -36,7 +36,7 @@ const AddSchools = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/schools",
+        "https://school-backend-sglg.onrender.com/api/schools",
         formData,
         {
           headers: {
